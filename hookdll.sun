@@ -1,0 +1,4 @@
+name hookdll
++hookdll.cpp
+dynamic
+require ../Soup/soup
