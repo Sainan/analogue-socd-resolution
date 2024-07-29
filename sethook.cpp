@@ -47,8 +47,8 @@ int main(int argc, const char** argv)
 			{
 				time_t time_a = 0;
 				time_t time_d = 0;
-				float value_a = 0.0f;
-				float value_d = 0.0f;
+				float last_value_a = 0.0f;
+				float last_value_d = 0.0f;
 				while (true)
 				{
 					for (auto& kbd : soup::AnalogueKeyboard::getAll())
@@ -56,29 +56,27 @@ int main(int argc, const char** argv)
 						std::cout << "Detected " << kbd.name << std::endl;
 						while (!kbd.disconnected)
 						{
+							float value_a = 0.0f;
+							float value_d = 0.0f;
 							for (auto& key : kbd.getActiveKeys())
 							{
 								switch (key.getSoupKey())
 								{
-								case soup::KEY_A:
-									if (key.fvalue > value_a)
-									{
-										time_a = soup::time::millis();
-									}
-									value_a = key.fvalue;
-									break;
-
-								case soup::KEY_D:
-									if (key.fvalue > value_d)
-									{
-										time_d = soup::time::millis();
-									}
-									value_d = key.fvalue;
-									break;
-
+								case soup::KEY_A: value_a = key.getFValue(); break;
+								case soup::KEY_D: value_d = key.getFValue(); break;
 								default:;
 								}
 							}
+							if (value_a > last_value_a)
+							{
+								time_a = soup::time::millis();
+							}
+							last_value_a = value_a;
+							if (value_d > last_value_d)
+							{
+								time_d = soup::time::millis();
+							}
+							last_value_d = value_d;
 							if (value_a >= 0.25f && value_d >= 0.25f) // Both keys at least 1.0mm down?
 							{
 								if (priority_algoritm ? (time_a > time_d) : (value_a > value_d))
