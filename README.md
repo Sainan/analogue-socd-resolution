@@ -4,7 +4,7 @@ Rappy Snappy & Snap Tap for analogue keyboards in software.
 
 ## Supported Keyboards
 
-This project is mainly aimed at the Keychron Q1 HE, but keyboards from Wooting and the Razer Huntsman series are also supported.
+This project supports [all analogue keyboards that Soup supports](https://github.com/calamity-inc/universal-analog-plugin/issues/1), but is mainly aimed at Keychron Q1 HE and Drunkdeer keyboards. Notably, however, keyboards from Wooting and the Razer Huntsman series are also supported.
 
 ## Instructions
 
